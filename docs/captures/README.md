@@ -1,6 +1,8 @@
 # Dossier captures
 
-Placez ici vos screenshots Burp Suite et navigateur pour le rapport.
+Screenshots Burp Suite et navigateur pour le rapport de sécurité.
+
+**Référencées dans :** [SECURITY_AUDIT.md](../../SECURITY_AUDIT.md) (section 6 — preuves VULN-01 à VULN-08)
 
 Convention de nommage :
 

@@ -2,6 +2,8 @@
 
 Application web de réservation de places de cinéma avec corrections de sécurité appliquées.
 
+**Rapport de sécurité complet : [SECURITY_AUDIT.md](SECURITY_AUDIT.md)**
+
 ## Fonctionnalités
 
 - Authentification (inscription / connexion)
@@ -57,9 +59,9 @@ Cette branche corrige toutes les vulnérabilités de la branche `vulnerable` :
 
 Voir [docs/SECURITY_FIXES.md](docs/SECURITY_FIXES.md) pour le détail des corrections.
 
-Rapport d'audit complet : [docs/AUDIT.md](docs/AUDIT.md).
+Rapport d'audit complet : [SECURITY_AUDIT.md](SECURITY_AUDIT.md) · [docs/AUDIT.md](docs/AUDIT.md)
 
-Captures obligatoires (requêtes, payloads, réponses, code) : [docs/CAPTURES.md](docs/CAPTURES.md).
+Captures obligatoires : [docs/CAPTURES.md](docs/CAPTURES.md) · images dans [docs/captures/](docs/captures/)
 
 Les vulnérabilités originales restent documentées dans [docs/VULNERABILITIES.md](docs/VULNERABILITIES.md) (référence pédagogique).
 
