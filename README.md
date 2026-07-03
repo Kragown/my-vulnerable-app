@@ -57,6 +57,10 @@ Cette branche corrige toutes les vulnérabilités de la branche `vulnerable` :
 
 Voir [docs/SECURITY_FIXES.md](docs/SECURITY_FIXES.md) pour le détail des corrections.
 
+Rapport d'audit complet : [docs/AUDIT.md](docs/AUDIT.md).
+
+Captures obligatoires (requêtes, payloads, réponses, code) : [docs/CAPTURES.md](docs/CAPTURES.md).
+
 Les vulnérabilités originales restent documentées dans [docs/VULNERABILITIES.md](docs/VULNERABILITIES.md) (référence pédagogique).
 
 ## Branches
