@@ -51,9 +51,12 @@ export default function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            minLength={4}
+            minLength={8}
           />
         </div>
+        <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1rem' }}>
+          Minimum 8 caractères
+        </p>
         <button type="submit" className="btn" style={{ width: '100%' }}>
           Créer un compte
         </button>

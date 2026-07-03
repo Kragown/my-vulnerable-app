@@ -28,7 +28,7 @@ export default function Nav() {
           {user ? (
             <>
               <Link href="/reservations">Mes réservations</Link>
-              <Link href="/admin">Admin</Link>
+              {user.role === 'admin' && <Link href="/admin">Admin</Link>}
               <span style={{ color: 'var(--muted)', fontSize: '0.9rem' }}>{user.email}</span>
               <button className="btn btn-secondary" onClick={logout} style={{ padding: '0.4rem 0.8rem' }}>
                 Déconnexion

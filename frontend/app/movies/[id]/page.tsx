@@ -100,7 +100,7 @@ export default function MovieDetailPage() {
           <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '0.5rem' }}>
             {r.author_email} — {new Date(r.created_at).toLocaleDateString('fr-FR')}
           </p>
-          <div dangerouslySetInnerHTML={{ __html: r.content }} />
+          <div>{r.content}</div>
         </div>
       ))}
 

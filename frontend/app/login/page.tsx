@@ -9,11 +9,11 @@ export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorHtml, setErrorHtml] = useState('');
+  const [error, setError] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setErrorHtml('');
+    setError('');
     try {
       const data = await api<{ token: string; user: object }>('/api/auth/login', {
         method: 'POST',
@@ -23,21 +23,15 @@ export default function LoginPage() {
       setUser(data.user);
       router.push('/movies');
     } catch (err: unknown) {
-      const e = err as Error & { data?: { error?: string; reflected?: string } };
-      const msg = e.data?.error || e.message;
-      setErrorHtml(msg);
+      const e = err as Error & { data?: { error?: string } };
+      setError(e.data?.error || e.message);
     }
   }
 
   return (
     <div style={{ maxWidth: 400, margin: '2rem auto' }}>
       <h1 style={{ marginBottom: '1.5rem' }}>Connexion</h1>
-      {errorHtml && (
-        <div
-          className="error"
-          dangerouslySetInnerHTML={{ __html: errorHtml }}
-        />
-      )}
+      {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>

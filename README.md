@@ -1,8 +1,6 @@
-# CinémaBook — Plateforme de réservation (version vulnérable)
+# CinémaBook — Plateforme de réservation (version sécurisée)
 
-Application web de réservation de places de cinéma, **volontairement vulnérable**, développée dans le cadre d'un projet de sécurité applicative.
-
-> **Usage local uniquement.** Ne jamais exposer cette version sur Internet.
+Application web de réservation de places de cinéma avec corrections de sécurité appliquées.
 
 ## Fonctionnalités
 
@@ -12,7 +10,7 @@ Application web de réservation de places de cinéma, **volontairement vulnérab
 - Réservation de places (une ou plusieurs)
 - Tarifs : enfant (6 €), étudiant (8 €), adulte (12 €)
 - Avis sur les films
-- Panneau d'administration
+- Panneau d'administration (accès admin uniquement)
 
 ## Prérequis
 
@@ -25,8 +23,9 @@ Application web de réservation de places de cinéma, **volontairement vulnérab
 # Backend
 cd backend
 cp .env.example .env
+# Modifier JWT_SECRET dans .env (minimum 32 caractères)
 npm install
-npm run seed    # optionnel : réinitialise la base de données
+npm run seed
 npm run dev     # http://localhost:3001
 
 # Frontend (autre terminal)
@@ -43,52 +42,33 @@ npm run dev     # http://localhost:3000
 | `user@demo.local` | `password` | user |
 | `admin@demo.local` | `password` | admin |
 
-## Parcours utilisateur
+## Sécurité
 
-1. Se connecter avec un compte démo
-2. Parcourir les films sur `/movies`
-3. Choisir un film → sélectionner une séance → réserver des places
-4. Consulter ses réservations sur `/reservations`
+Cette branche corrige toutes les vulnérabilités de la branche `vulnerable` :
 
-## Vulnérabilités documentées
+- Contrôle d'ownership (IDOR/BOLA)
+- Requêtes SQL paramétrées
+- Protection XSS (sanitization + CSP)
+- Auth renforcée (rate limiting, JWT court, bcrypt 12)
+- Mass assignment bloqué
+- Headers de sécurité (Helmet, CSP)
+- CORS restreint
+- Pas d'endpoint debug ni de stack traces en production
 
-Voir [docs/VULNERABILITIES.md](docs/VULNERABILITIES.md) pour la liste complète avec étapes d'exploitation :
+Voir [docs/SECURITY_FIXES.md](docs/SECURITY_FIXES.md) pour le détail des corrections.
 
-| Type | Exemple dans l'app |
-|------|-------------------|
-| IDOR / BOLA | Accès aux réservations d'autrui |
-| Injection SQL | Recherche de films |
-| XSS | Avis films (stocké), erreur login (réfléchi) |
-| Auth faible | JWT prévisible, pas de rate limit |
-| Mass Assignment | Modification du rôle, prix à 0 € |
-| Misconfiguration | Debug endpoint, stack traces |
-
-## Structure du projet
-
-```
-backend/     # API REST Express + SQLite
-frontend/    # Interface Next.js (App Router)
-docs/        # Documentation des vulnérabilités
-```
+Les vulnérabilités originales restent documentées dans [docs/VULNERABILITIES.md](docs/VULNERABILITIES.md) (référence pédagogique).
 
 ## Branches
 
-- `vulnerable` — version actuelle avec failles intentionnelles
-- `secure` — corrections (à venir)
-- Pipeline CI/CD sécurité — après la branche `secure`
+- `vulnerable` — version avec failles intentionnelles
+- `secure` — version corrigée (branche actuelle)
+- Pipeline CI/CD sécurité — à venir
 
-## API principale
+## Structure
 
-| Méthode | Endpoint | Description |
-|---------|----------|-------------|
-| POST | `/api/auth/login` | Connexion |
-| POST | `/api/auth/register` | Inscription |
-| GET | `/api/movies` | Liste des films |
-| GET | `/api/movies/search?q=` | Recherche |
-| GET | `/api/showtimes` | Séances |
-| GET | `/api/showtimes/:id/seats` | Places disponibles |
-| POST | `/api/reservations` | Créer une réservation |
-| GET | `/api/reservations/:id` | Détail réservation |
-| POST | `/api/reviews` | Publier un avis |
-| GET | `/api/admin/stats` | Statistiques |
-| GET | `/api/debug/config` | Config exposée |
+```
+backend/     # API REST Express + SQLite (sécurisée)
+frontend/    # Interface Next.js (App Router)
+docs/        # VULNERABILITIES.md + SECURITY_FIXES.md
+```

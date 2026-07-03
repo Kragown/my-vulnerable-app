@@ -57,9 +57,6 @@ export default function ReservationDetailPage() {
           ))}
         </ul>
       </div>
-      <p style={{ marginTop: '1rem', color: 'var(--muted)', fontSize: '0.85rem' }}>
-        Astuce : changez l&apos;ID dans l&apos;URL pour voir les réservations d&apos;autres utilisateurs.
-      </p>
     </div>
   );
 }

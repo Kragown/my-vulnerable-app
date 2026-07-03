@@ -1,5 +1,6 @@
 const db = require('./index');
 const bcrypt = require('bcryptjs');
+const { BCRYPT_ROUNDS } = require('../utils/validate');
 
 const TICKET_PRICES = {
   enfant: 6,
@@ -38,7 +39,7 @@ function seed() {
   const insertUser = db.prepare(
     'INSERT INTO users (email, password, role, bio) VALUES (?, ?, ?, ?)'
   );
-  const hashedPassword = bcrypt.hashSync('password', 4);
+  const hashedPassword = bcrypt.hashSync('password', BCRYPT_ROUNDS);
   insertUser.run('user@demo.local', hashedPassword, 'user', 'Amateur de science-fiction.');
   insertUser.run('admin@demo.local', hashedPassword, 'admin', 'Administrateur du cinéma.');
 

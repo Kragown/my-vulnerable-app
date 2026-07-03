@@ -15,7 +15,6 @@ export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState<Movie[] | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -26,11 +25,10 @@ export default function MoviesPage() {
     e.preventDefault();
     setError('');
     try {
-      const data = await api<{ query: string; movies: Movie[] }>(
+      const data = await api<{ movies: Movie[] }>(
         `/api/movies/search?q=${encodeURIComponent(search)}`
       );
       setSearchResults(data.movies);
-      setSearchQuery(data.query);
     } catch (err: unknown) {
       const e = err as Error & { data?: { error?: string } };
       setError(e.data?.error || e.message);
@@ -58,11 +56,6 @@ export default function MoviesPage() {
           </button>
         )}
       </form>
-      {searchQuery && (
-        <p style={{ color: 'var(--muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
-          Requête SQL : <code>{searchQuery}</code>
-        </p>
-      )}
       {error && <div className="error">{error}</div>}
       <div className="grid-movies">
         {displayMovies.map((movie) => (

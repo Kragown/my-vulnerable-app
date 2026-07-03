@@ -1,10 +1,10 @@
 const express = require('express');
 const db = require('../db');
-const { authRequired } = require('../middleware/auth');
+const { authRequired, adminRequired } = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/stats', authRequired, (req, res) => {
+router.get('/stats', authRequired, adminRequired, (req, res) => {
   const stats = {
     users: db.prepare('SELECT COUNT(*) as count FROM users').get().count,
     movies: db.prepare('SELECT COUNT(*) as count FROM movies').get().count,
