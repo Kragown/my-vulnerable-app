@@ -711,13 +711,19 @@ gh run view <run-id>
 
 ## 10. Conclusion
 
-Le projet **CinémaBook** démontre un cycle complet de sécurité applicative :
+Le projet **CinémaBook** reproduit un cycle complet de sécurité applicative :
 
-1. **Conception vulnérable** (`vulnerable`) — 8 failles OWASP intégrées volontairement, exploitables et documentées avec captures.
-2. **Correction à la racine** (`secure`) — chaque faille est corrigée par un changement architectural (ownership, requêtes paramétrées, sanitization, whitelist), pas par une simple blacklist de payloads.
-3. **Automatisation** — pipeline CI/CD avec SAST, SCA, secret scanning, DAST et tests applicatifs.
+1. **Développement vulnérable** — branche `vulnerable` avec 8 failles OWASP intégrées volontairement (IDOR, BOLA, SQLi, XSS, auth faible, mass assignment, misconfiguration).
+2. **Audit personnel** — revue manuelle du code, cartographie des surfaces d'attaque et priorisation des risques (sections 5 et 6 de ce rapport, [`docs/AUDIT.md`](docs/AUDIT.md)).
+3. **Exploitation contrôlée** — preuves reproductibles en environnement local : requêtes HTTP, payloads et scénarios documentés dans [`docs/VULNERABILITIES.md`](docs/VULNERABILITIES.md), avec captures dans [`docs/captures/`](docs/captures/).
+4. **Documentation** — rapport formel (`SECURITY_AUDIT.md`), guides d'exploitation et de correction, procédures de capture et documentation CI/CD.
+5. **Correction** — branche `secure` : chaque faille est corrigée à la racine (ownership, requêtes paramétrées, sanitization, whitelist de champs), pas par une simple blacklist de payloads.
+6. **Sécurisation** — durcissement global : Helmet, CORS restreint, JWT fort, rate limiting, messages d'erreur génériques, suppression de l'endpoint debug, 13 tests applicatifs.
+7. **Pipeline DevSecOps** — GitHub Actions (`.github/workflows/security.yml`) : SAST (Semgrep), SCA (npm audit), secret scanning (Gitleaks), DAST (OWASP ZAP baseline) et tests automatisés.
 
-Les captures de preuve sont disponibles dans [`docs/captures/`](docs/captures/). Ce rapport constitue la synthèse formelle exigée pour l'évaluation du projet.
+L'objectif n'est pas de produire une application parfaite, mais de démontrer une compréhension **offensive** (identifier et exploiter les failles) et **défensive** (corriger, durcir et automatiser les contrôles) de la sécurité web moderne.
+
+Ce rapport constitue la synthèse formelle exigée pour l'évaluation du projet.
 
 ---
 
