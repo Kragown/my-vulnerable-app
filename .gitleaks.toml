@@ -1,0 +1,17 @@
+title = "CinemaBook gitleaks config"
+
+[allowlist]
+description = "Fichiers autorisés contenant des exemples"
+paths = [
+  '''backend/\.env\.example''',
+  '''docs/''',
+  '''\.github/''',
+]
+
+[allowlist.regexes]
+description = "Placeholders documentés"
+regexes = [
+  '''changez-moi-en-production''',
+  '''ci-test-secret''',
+  '''cinema-secret-key''',
+]

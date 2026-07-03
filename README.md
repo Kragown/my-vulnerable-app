@@ -63,7 +63,21 @@ Les vulnérabilités originales restent documentées dans [docs/VULNERABILITIES.
 
 - `vulnerable` — version avec failles intentionnelles
 - `secure` — version corrigée (branche actuelle)
-- Pipeline CI/CD sécurité — à venir
+- Pipeline CI/CD sécurité — [docs/CI_CD.md](docs/CI_CD.md)
+
+## Pipeline CI/CD
+
+La pipeline GitHub Actions (`.github/workflows/security.yml`) s'exécute automatiquement sur `push` et `pull_request` :
+
+| Contrôle | Outil |
+|----------|-------|
+| SAST | Semgrep |
+| SCA | npm audit |
+| Secret scanning | Gitleaks |
+| DAST | OWASP ZAP baseline |
+| Tests applicatifs | npm test (backend + frontend) |
+
+Elle échoue en cas de vulnérabilité critique ou de secret détecté.
 
 ## Structure
 

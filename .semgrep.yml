@@ -1,0 +1,26 @@
+title: CinémaBook Security Rules
+
+paths:
+  exclude:
+    - docs/
+    - "**/node_modules/"
+    - frontend/.next/
+    - backend/data/
+
+rules:
+  - id: hardcoded-jwt-secret
+    patterns:
+      - pattern: jwt.sign(..., "...", ...)
+    message: Secret JWT hardcodé détecté
+    severity: ERROR
+    languages: [javascript]
+
+  - id: sql-string-concat
+    patterns:
+      - pattern: |
+          db.prepare($QUERY + $INPUT)
+      - pattern: |
+          `SELECT ... ${$INPUT} ...`
+    message: Possible injection SQL par concaténation
+    severity: ERROR
+    languages: [javascript]
